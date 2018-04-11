@@ -16,6 +16,10 @@ EXIT_UNKNOWN = 256
 REGEX_REMOVE_HTML = re.compile(r"<.*?>")
 REGEX_REMOVE_REPLY = re.compile(r">>\d+")
 REGEX_REMOVE_LINK = re.compile(r"https?://(\S*)")
+DOUBTFUL_WORDS = ["Bump", "bump", "бамп", "Бамп",
+                  "Ролл", "ролл" "roll", "Roll", ]  # Raise characters limit
+BAD_WORDS = ["САЖА", "SAGE",
+             "Главная Настройка Mobile Контакты NSFW ", "[ b / vg / po / news ]"]  # Skip possible wipe
 
 result = []
 
@@ -36,8 +40,12 @@ def main():
         msg = REGEX_REMOVE_HTML.sub('', msg)  # Remove remaining HTML
         msg = REGEX_REMOVE_REPLY.sub('', msg)  # Remove replies (>>2)
         msg = REGEX_REMOVE_LINK.sub('', msg)  # Remove links (https://google.com)
+        msg = msg.replace("(OP)", "")  # Remove "(OP)"
 
-        if msg in ["Bump", "bump", "бамп", "бамп", "ролл", "roll", "Ролл", "SAGE", "сажа"] and len(msg) <= 35:
+        if any(x in msg for x in DOUBTFUL_WORDS) and len(msg) <= 35:  # https://stackoverflow.com/a/3389611
+            continue
+
+        if any(x in msg for x in BAD_WORDS):
             continue
 
         out_file.write(msg)
