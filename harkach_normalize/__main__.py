@@ -19,7 +19,8 @@ REGEX_REMOVE_LINK = re.compile(r"https?://(\S*)")
 DOUBTFUL_WORDS = ["Bump", "bump", "бамп", "Бамп",
                   "Ролл", "ролл" "roll", "Roll", ]  # Raise characters limit
 BAD_WORDS = ["САЖА", "SAGE",
-             "Главная Настройка Mobile Контакты NSFW ", "[ b / vg / po / news ]"]  # Skip possible wipe
+             "Главная Настройка Mobile Контакты NSFW ", "[ b / vg / po / news ]",
+             "Ответы: ", ]  # Skip possible wipe
 
 result = []
 
@@ -32,6 +33,7 @@ def main():
     log.info(f"posts count: {len(data)}")
     log.info("started!")
     out_file = open("./output_data.txt", "wt", encoding="utf-8", errors="ignore")
+    postcount = 0
     for orig_msg in data:
         if len(orig_msg) <= 15:
             continue
@@ -50,7 +52,9 @@ def main():
 
         out_file.write(msg)
         out_file.write("\n")
+        postcount += 1
 
+    log.info(f"posts count after: {postcount}")
     log.info("done!")
     file.close()
     return EXIT_SUCCESS
