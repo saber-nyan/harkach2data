@@ -1,4 +1,4 @@
-# Утилиты сбора данных со 2ch.hk
+# Утилиты сбора данных с 2ch.hk
 ## Установка
 ```bash
 git clone https://github.com/saber-nyan/harkach2data.git && cd harkach2data
