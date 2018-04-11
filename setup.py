@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-Скрипт установки~.
+Скрипт установки~
 """
 from distutils.core import setup
 
