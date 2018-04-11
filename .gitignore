@@ -125,3 +125,5 @@ $RECYCLE.BIN/
 [Ss]cripts
 pyvenv.cfg
 pip-selfcheck.json
+output_data.txt
+posts.pkl
